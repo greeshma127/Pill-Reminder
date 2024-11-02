@@ -1,0 +1,66 @@
+.pill-box {
+    height: 100px;
+    width: 250px;
+    border: 1px solid black;
+    float: left;
+    margin-right: 20px; /* Horizontal spacing */
+    margin-bottom: 20px; /* Vertical spacing */
+    border-radius: 15px;
+}
+
+.pill-box p,.apt p{
+    padding-left: 10px;
+    padding-top: 7px;
+}
+
+#b{
+    padding-top: 140px;
+}
+.pill-cont
+{
+
+    padding: 20px;
+}
+
+h4{
+    padding-top: 20px;
+}
+
+.apt-box{
+    clear: left;
+}
+
+#add{
+    margin-left: 95px;
+    font-size: 50px;
+}
+
+img{
+    height: 695px;
+    width: 756px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.btn{
+    margin-top: 20px;
+}
+
+.apt{
+    height: 140px;
+    width: 250px;
+    border: 1px solid black;
+    float: left;
+    margin-right: 20px; /* Horizontal spacing */
+    margin-bottom: 20px; /* Vertical spacing */
+    border-radius: 15px;   
+}
+
+#apt-add{
+    margin-left: 95px;
+    margin-top: 20px;
+    font-size: 50px;
+}
