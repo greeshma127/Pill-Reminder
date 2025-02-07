@@ -39,6 +39,10 @@ app.get("/settings",(req,res)=>{
     res.render("settings.ejs");
 });
 
+app.get("/register-login",(req,res)=>{
+    res.render("register.ejs");
+});
+
 app.get("/my-pills", async(req,res)=>{
     const result=await db.query("SELECT * FROM pills");
     const pills = result.rows;
