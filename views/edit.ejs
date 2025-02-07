@@ -1,0 +1,43 @@
+<%- include('partials/header.ejs') %>
+
+
+<div class="container">
+    <h2>Edit Pill</h2>
+    <form action="/edit/<%= pill.id %>" method="POST">
+        <div class="mb-3">
+            <label for="pillName" class="form-label">Pill Name</label>
+            <input type="text" class="form-control" id="pillName" name="pillName" value="<%= pill.pill_name %>" required>
+        </div>
+        <div class="mb-3">
+            <label for="dosage" class="form-label">Dosage</label>
+            <input type="text" class="form-control" id="dosage" name="dosage" value="<%= pill.dosage %>" required>
+        </div>
+        <div class="mb-3">
+            <label for="unit" class="form-label">Unit</label>
+            <select class="form-select" id="unit" name="unit" required>
+                <option value="drop(s)" <%= pill.unit === 'drop(s)' ? 'selected' : '' %>>Drop(s)</option>
+                <option value="gram(s)" <%= pill.unit === 'gram(s)' ? 'selected' : '' %>>Gram(s)</option>
+                <option value="capsule" <%= pill.unit === 'capsule' ? 'selected' : '' %>>Capsule</option>
+                <option value="pill" <%= pill.unit === 'pill' ? 'selected' : '' %>>Pill</option>
+                <option value="sachet" <%= pill.unit === 'sachet' ? 'selected' : '' %>>Sachet</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="reminderTime1" class="form-label">Reminder Time 1</label>
+            <input type="time" class="form-control" id="reminderTime1" name="reminderTime1" value="<%= pill.reminder_time1 %>" required>
+        </div>
+        <div class="mb-3">
+            <label for="reminderTime2" class="form-label">Reminder Time 2 (optional)</label>
+            <input type="time" class="form-control" id="reminderTime2" name="reminderTime2" value="<%= pill.reminder_time2 %>">
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+
+    <!-- Separate form for deletion -->
+    <form action="/delete/<%= pill.id %>" method="POST" style="display:inline;">
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+</div>
+
+</body>
+</html>

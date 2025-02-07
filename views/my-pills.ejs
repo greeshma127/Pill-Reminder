@@ -1,0 +1,20 @@
+<%- include('partials/header.ejs') %>
+
+<div class="pill-cont">
+    <h4>My Pills</h4>
+    <div class="box">
+        <% if (pills.length > 0) { %>
+            <% pills.forEach(pill => { %>
+                <a href="/edit/<%= pill.id %>" class="pill-box-link" style="text-decoration: none; color: inherit;">
+                    <div class="pill-box">
+                        <p><%= pill.pill_name %></p>
+                        <p><%= pill.reminder_time1 %> <%= pill.reminder_time2 ? ' | ' + pill.reminder_time2 : '' %></p>
+                    </div>
+                </a>
+            <% }) %>
+        <% } else { %>
+            <p>No pills added yet.</p>
+        <% } %>
+    <div class="pill-box"><a href="/add"><p id="add">+</p></a></div>
+    </div>
+</div>

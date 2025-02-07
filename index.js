@@ -1,15 +1,22 @@
 import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
+import session from "express-session";
 
 const app = express();
 const port = 3000;
+
+app.use(session({
+    secret: "secret", // Change this to a strong secret
+    resave: false,
+    saveUninitialized: true
+}));
 
 const db = new pg.Client({
     user: "postgres",
     host: "localhost",
     database: "pill_reminder",
-    password: "password",
+    password: "pg2003",
     port: 5432,
 });
 
@@ -28,11 +35,23 @@ app.get("/", (req, res) => {
     res.render("login.ejs");
 });
 
+app.get("/settings",(req,res)=>{
+    res.render("settings.ejs");
+});
+
+app.get("/my-pills", async(req,res)=>{
+    const result=await db.query("SELECT * FROM pills");
+    const pills = result.rows;
+
+    res.render("my-pills", { username: req.session.username, pills });
+})
+
 app.post("/login", async (req, res) => {
     const { username, pw } = req.body;
     try {
         const result = await db.query("SELECT * FROM users WHERE username = $1 AND password = $2", [username, pw]);
         if (result.rows.length > 0) {
+            req.session.username = result.rows[0].username;
             res.redirect("/home"); // Redirect to the home page on successful login
         } else {
             res.send("Invalid username or password");
@@ -45,6 +64,10 @@ app.post("/login", async (req, res) => {
 
 app.get("/home", async (req, res) => {
     try {
+        if (!req.session.username) {
+            return res.redirect("/login"); // Redirect if not logged in
+        }
+
         const result = await db.query("SELECT * FROM pills");
         const pills = result.rows;
 
@@ -52,7 +75,7 @@ app.get("/home", async (req, res) => {
         const appointmentResult = await db.query("SELECT * FROM appointments");
         const appointments = appointmentResult.rows;
 
-        res.render("home", { pills, appointments }); // Pass both pills and appointments
+        res.render("home", { username: req.session.username, pills, appointments }); // Pass both pills and appointments
     } catch (error) {
         console.error("Error retrieving pills or appointments:", error);
         res.send("An error occurred while loading the homepage.");
